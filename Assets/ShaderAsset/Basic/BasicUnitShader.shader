@@ -1,4 +1,9 @@
-Shader "Unlit/BasicUnitShader"
+
+/*
+    Unity Shader是Unity在底层着色器之上的一层"封装"
+    当然由于高度的封装性，会失去底层真实着色器编写中可行的一些类型和语法
+*/
+Shader "Custom/BasicUnitShader"
 {
     // 定义一系列会出现在材质面板中的属性，定义在此处的作用是关联到材质
     Properties
@@ -30,6 +35,7 @@ Shader "Unlit/BasicUnitShader"
             // 渲染标签 Tags
             // 渲染状态 RenderSetup
             
+            // 虽然也可以使用GLSL，但是Unity 会在需要时将 HLSL 交叉编译为优化的 GLSL
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -49,5 +55,6 @@ Shader "Unlit/BasicUnitShader"
         }
     }
     
+    // 若上述所有的SubShader在目标显卡上无法执行，则使用此处指定的"后路"
     Fallback "VertexLit"
 }
