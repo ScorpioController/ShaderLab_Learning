@@ -42,7 +42,7 @@ Shader "Custom/Illumination/BasicPixelDiffuse"
 				fragInput.vertex = UnityObjectToClipPos(v.vertex);
 
 				// 转换法线
-				float3 worldNormal = UnityWorldToObjectDir(v.normal);
+				float3 worldNormal = UnityObjectToWorldNormal(v.normal);
 				float3 normal = normalize(worldNormal);
 				fragInput.worldNormal = normal;
 

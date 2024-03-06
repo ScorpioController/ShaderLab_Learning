@@ -96,3 +96,26 @@ UnityWorldSpaceLightDir(float4 pos);
 // tips 上面两个函数去掉Unity前缀则应该传入模型空间顶点位置
 ```
 
+
+
+
+
+复习一下
+
+Tags设置为ForwardBase指定渲染模式
+
+从内置变量当中取得环境光颜色 ambient
+
+从内置变量中取得光源颜色 lightColor
+
+将顶点和法线变换到世界空间 UnityObject2ClipPos / UnityWorld2ObjectDir
+
+漫反射：光源颜色和漫反射颜色相乘得到混合的颜色再乘以归一化的法线和光源方向点积后约束
+
+高光反射：光源颜色和高光反射颜色相乘得到混合的颜色再乘以
+
+- 反射方向（光源方向的反方向和归一化的法线进行reflect计算）和视角方向的点积
+- 半程向量（光源方向和视角方向加和后归一化）和法线的点积
+
+点积的结果用gloss参数做幂运算来控制反光度
+

@@ -46,7 +46,7 @@ Shader "Custom/Illumination/BasicVertexDiffuse"
 				fixed3 lightDir = normalize(_WorldSpaceLightPos0.xyz);
 				
 				// 转换的法线
-				float3 worldNormal = UnityWorldToObjectDir(v.normal);
+				float3 worldNormal = UnityObjectToWorldNormal(v.normal);
 				float3 normal = normalize(worldNormal);
 				
 				// 计算漫反射
