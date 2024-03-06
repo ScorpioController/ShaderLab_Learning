@@ -28,17 +28,25 @@
   
   $\vec{n}$​ 表面法线
   
-  $\vec{h}$ 对视角向量和法线向量取平均后归一化得到的向量
+  $\vec{h}$ 对视角向量和法线向量取平均后归一化得到的向量（避免超过90°夹角后丢失高光）
   
-  $\vec{I}$​​ 指向光源的单位矢量
+  $\vec{I}$​​​ 指向光源的单位矢量
   
   M<sub>gloss</sub> 材质的光泽度，控制高光反射的亮点大小
   
   高光反射部分的计算为：
   
-  C<sub>specular</sub> = (C<sub>light</sub> · M<sub>specular</sub>)max(0, $\vec{v}$ · $\vec{I}$​)<sup>M<sub>gloss</sub></sup> （Phong模型）
+  C<sub>specular</sub> = (C<sub>light</sub> · M<sub>specular</sub>)max(0, $\vec{r}$ · $\vec{v}$​)<sup>M<sub>gloss</sub></sup> （Phong模型）
   
-  C<sub>specular</sub> = (C<sub>light</sub> · M<sub>specular</sub>)max(0, $\vec{v}$ · $\vec{h}$)<sup>M<sub>gloss</sub></sup> （Blinn模型）
+  C<sub>specular</sub> = (C<sub>light</sub> · M<sub>specular</sub>)max(0, $\vec{n}$ · $\vec{h}$​)<sup>M<sub>gloss</sub></sup> （Blinn模型）
+  
+  反射方向的计算为：
+  
+  $\vec{r}$ = reflect(-$\vec{I}$ * $\vec{n}$​)
+  
+  Blinn模型的半程向量计算为：
+  
+  $\vec{h}$ = normalize($\vec{I}$ + $\vec{v}$)
   
 - 漫反射 diffuse
 
@@ -69,3 +77,22 @@
 由于顶点数目通常远小于像素数目，因此逐顶点光照的计算成本通常更小
 
 但由于像素颜色数据依赖于顶点输出数据的线性插值，因此光照模型中存在非线性计算时显示效果往往会出现问题
+
+
+
+Tips: 颜色的加法和乘法和色光混合有关
+
+
+
+```
+// 一些简便的shaderLab函数
+
+// 输入世界空间顶点位置，返回摄像机方向
+UnityWorldSpaceViewDir(float4 pos);
+
+// 输入世界空间的顶点位置，返回光源方向(仅前向渲染)
+UnityWorldSpaceLightDir(float4 pos);
+
+// tips 上面两个函数去掉Unity前缀则应该传入模型空间顶点位置
+```
+
